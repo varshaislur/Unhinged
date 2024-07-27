@@ -4,19 +4,27 @@ import TextInput from '../components/TextInput'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import Loading from '../components/Loading'
+import CustomButton from '../components/CustomButton'
+import BgImg from '../assets/BgImg.png'
 
 const Login = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ 
+  } = useForm({
     mode: "onChange",
   });
-  const [errMsg,setErrMsg]=useState("")
-  const [isSubmitting,setIsSubmitting]=useState(false)
+
+  const onSubmit =async(data)=>{
+    console.log(data)
+  }
+
+  const [errMsg, setErrMsg] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const dispatch = useDispatch()
-  
+
 
   return (
     <div className='bg-bgColor h-[100vh] flex items-center justify-center p-6'>
@@ -38,7 +46,7 @@ const Login = () => {
           <span className='text-sm mt-2 text-ascent-2'>
             Welcome
           </span>
-          <form className='py-8 flex flex-col gap-5' >
+          <form className='py-8 flex flex-col gap-5' onSubmit={handleSubmit(onSubmit)} >
             <TextInput name='email'
               placeholder='email@example.com'
               label='Email Address'
@@ -48,8 +56,8 @@ const Login = () => {
               })}
               styles='w-full rounded-xl'
               labelStyle='ml-2'
-              error={errors.email? errors.email.message:""}></TextInput>
-              <TextInput name='password'
+              error={errors.email ? errors.email.message : ""}></TextInput>
+            <TextInput name='password'
               placeholder='12345678'
               label='Password'
               type='password'
@@ -58,21 +66,31 @@ const Login = () => {
               })}
               styles='w-full rounded-xl'
               labelStyle='ml-2'
-              error={errors.email? errors.email.message:""}>
+              error={errors.password ? errors.password.message : ""}>
 
-              </TextInput>
-              <Link to="/reset-password" className="text-sm text-right text-blue font semibold" >Forgot Password?</Link>
-              {errMsg?.message && (<span className={`text-sm ${errMsg?.status == "failed"? "text-[#f64949fe]" : "text-[#2ba150fe]"}`}>{errMsg?.message}</span>)}
-              {
-                isSubmitting ? <Loading/> :<CustomButton/>
-              }
+            </TextInput>
+            <Link to="/reset-password" className="text-sm text-right text-blue font semibold" >Forgot Password?</Link>
+            {errMsg?.message && (<span className={`text-sm ${errMsg?.status == "failed" ? "text-[#f64949fe]" : "text-[#2ba150fe]"}`}>{errMsg?.message}</span>)}
+            {
+              isSubmitting ? <Loading /> : <CustomButton type='submit' containerStyles={`inline-flex justify-center rounded-md bg-blue px-8 py-3 text-sm font-medium text-white outline-none`} title="Login" />
+            }
           </form>
+          <p className='text-ascent-2 text-sm text-center'>
+            Don't have an account?
+            <Link to='/register'
+              className='text-[#065ad8] font-semibold ml-2 cursor-pointer'>Create an account</Link>
+          </p>
         </div>
         {/* Right */}
+        <div className='hidden w-1/2 h-full lg:flex flex-col items-center justify-center bg-blue'>
+          <div className='relative w-full flex items-center justify-center'>
+            <img src={BgImg} alt="Bg Image" className='w-48 2xl:w-64 h-48 2xl:h-64 rounded-full object-cover' />
 
+          </div>
+          </div>
+        </div>
       </div>
-    </div>
-  )
+      )
 }
 
-export default Login
+      export default Login
