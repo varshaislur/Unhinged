@@ -3,6 +3,7 @@ import './App.css';
 import { Outlet, Navigate, Route , Routes, userLocation, useLocation } from 'react-router-dom';
 import { Login,Register,Home,Profile,ResetPassword } from './pages/index.js';
 import { useSelector } from 'react-redux';
+import TopBar from './components/TopBar.jsx';
 
 function Layout(){
  
@@ -13,7 +14,9 @@ function Layout(){
   const location =useLocation();
  
   return user?.token ? (
+    <>
     <Outlet/>
+    </>
   ):(
     <Navigate to='/login' state={{ from : location }} replace />
   )

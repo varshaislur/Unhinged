@@ -16,6 +16,17 @@ z-index: 49;
 }
 
 
+/* .unhinged-text{
+  color: #065ad8; /* Text color */
+    /* text-shadow: 
+        -1px -1px 0 #fff,  
+         1px -1px 0 #fff,
+         -1px  1px 0 #fff,
+          1px  1px 0 #fff;  */
+
+
+
+
 .dots-container {
   display: flex;
   align-items: center;

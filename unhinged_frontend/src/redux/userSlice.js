@@ -23,22 +23,23 @@ const userSlice = createSlice({
     },
   },
 });
+export const {login , logout , updateProfile}=userSlice.actions
 export default userSlice.reducer;
 
-export function UserLogin(user) {
-  return (dispatch, getState) => {
-    dispatch(userSlice.actions.login(user));
-  };
-}
+// export function UserLogin(user) {
+//   return (dispatch, getState) => {
+//     dispatch(userSlice.actions.login(user));
+//   };
+// }
 
-export function Logout() {
-  return (dispatch, getState) => {
-    dispatch(userSlice.actions.logout());
-  };
-}
+// export function Logout() {
+//   return (dispatch, getState) => {
+//     dispatch(userSlice.actions.logout());
+//   };
+// }
 
-export function UpdateProfile(val) {
-  return (dispatch, getState) => {
-    dispatch(userSlice.actions.updateProfile(val));
-  };
-}
+// export function UpdateProfile(val) {
+//   return (dispatch, getState) => {
+//     dispatch(userSlice.actions.updateProfile(val));
+//   };
+// }
