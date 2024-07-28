@@ -11,6 +11,7 @@ export const user = {
         email: "john@gmail.com",
         friends: ["64df3c064180b81adfe41d4b", "64df39704180b81adfe41d0b"],
         views: [],
+        profession: "Flutter Developer",
         verified: true,
         createdAt: "2023-08-18T09:33:32.519Z",
         updatedAt: "2023-08-18T09:49:19.475Z",
