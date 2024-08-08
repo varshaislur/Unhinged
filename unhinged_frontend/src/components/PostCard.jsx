@@ -1,8 +1,52 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
+import userProfile from '../assets/userprofile.png'
+import moment from 'moment';
 
-const PostCard = () => {
+const PostCard = ({post ,user , deletePost ,likePost}) => {
+  const [showAll, setShowAll] = useState(0);
+  const [showReply, setShowReply] = useState(0);
+  const [comments, setComments] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [replyComments, setReplyComments] = useState(0);
+  const [showComments, setShowComments] = useState(0);
+
   return (
-    <div>PostCard</div>
+   <div className='mb-2 bg-primary p-4 rounded-xl  shadow-lg hover:shadow-2xl'>
+    <div className='flex gap-3 items-center mb-2'>
+      <Link to={"/profile/"+post?.userId?._id}>
+      <img src={post?.userId?.profileUrl ?? userProfile} alt="alternate" className='w-14 h-14 object-cover rounded-full' />
+
+      </Link>
+      <div className='w-full flex justify-between'>
+        <div className='font-medium text-lg text-ascent-1'>
+          <Link to={"/profile/"+post?.userId?._id}>
+          <p className='font-medium text-lg text-ascent-1'>
+          {post?.userId?.firstName} {post?.userId?.lastName}
+          </p>
+          </Link>
+          <span className='text-ascent-2'>
+            {post?.userId?.location}
+
+          </span>
+        </div>
+        <span className='text-ascent-2'>
+        {moment(post?.createdAt ?? "2023-05-25").fromNow()}
+
+      </span>
+
+      </div>
+     
+
+    </div>
+    <p className='text-ascent-2'>
+      {
+        showAll ===post?._id ? post?.description : post?.description.slice(0,300)
+      }
+
+    </p>
+
+   </div>
   )
 }
 
