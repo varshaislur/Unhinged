@@ -4,6 +4,62 @@ import userProfile from '../assets/userprofile.png'
 import moment from 'moment';
 import { BiComment, BiLike, BiSolidLike } from 'react-icons/bi';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
+import Loading from './Loading';
+import { useForm } from 'react-hook-form';
+import TextInput from './TextInput';
+import CustomButton from './CustomButton';
+
+
+const CommentForm =({user, id ,replyAt , getComments})=>{
+  const [loading,setLoading]=useState(false)
+  const [errMsg, setErrMsg]= useState("");
+  const {
+    register,handleSubmit,reset,formState:{errors},
+  }=useForm({
+    mode:"onChange"
+  })
+  const onSubmit =async (data)=>{
+    
+
+  }
+
+  return(
+    <form className="w-full border-b border-[#66666645]" onSubmit={handleSubmit(onSubmit)} action="">
+      <div className='w-full flex items-center gap-2 py-4'>
+        <img src={user?.profileUrl ?? userProfile} alt="userimage" className='w-10 h-10 rounded-full object-cover' />
+          <TextInput
+          name='comment'
+          styles='w-full rounded-full py-3'
+          placeholder={replyAt ? `Reply @${replyAt}` : "Comment on this Post "}
+          register={register("comment",{
+            required:"Comment can not be empty"
+          })}
+          error={errors.comment ? errors.comment.message : ""}
+          >
+
+
+          </TextInput>
+      </div>
+      {
+        errMsg?.message && (
+          <span
+          role='alert'
+          className={`text-sm ${errMsg?.status === "failed" ? "text-[#f64949fe]":"text-[#2ba150fe]"} mt-0.5`}
+          >
+            {errMsg?.message}
+          </span>
+        )
+      }
+      <div className='flex items-end justify-end pb-2'>
+        {loading ? (<Loading/>):(<CustomButton title='Submit' type='submit' containerStyles='bg-[#0444a4] text-white py-1 px-3 rounded-full font-semibold text-sm'/>)}
+      </div>
+
+    </form>
+
+
+  )
+
+}
 
 const PostCard = ({post ,user , deletePost ,likePost}) => {
   const [showAll, setShowAll] = useState(0);
@@ -15,6 +71,8 @@ const PostCard = ({post ,user , deletePost ,likePost}) => {
   const getComments = async()=>{
 
   }
+
+  
   return (
    <div className='mb-2 bg-primary p-4 rounded-xl  shadow-lg hover:shadow-2xl'>
     <div className='flex gap-3 items-center mb-2'>
@@ -110,7 +168,31 @@ const PostCard = ({post ,user , deletePost ,likePost}) => {
 
     {/*comment type karne ka card yaha */ }
     {
-      showComments === post?._id
+      showComments === post?._id &&  (
+      <div className='w-full mt-4 border-t border-[#66666645] pt-4'>
+        <CommentForm
+        user={user}
+        id={post?._id}
+        getComments={()=> getComments(post?._id)}
+
+        />
+        {
+          loading ? (<Loading/>):(
+            comments?.length > 0 ? (
+              <div>
+                
+                 
+              </div>
+            ):(
+              <span className='flex text-sm py-4 text-ascent-2 text-center'>
+                No comments, Be the first to comment
+              </span>
+            )
+          )
+        }
+       
+
+      </div>)
     }
 
 

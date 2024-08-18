@@ -31,6 +31,10 @@ const Home = () => {
   const handlePostSubmit= async(data) => {
 
   }
+  
+  const handleFriendRequest= async(data)=>{
+
+  }
 
 
   return (
